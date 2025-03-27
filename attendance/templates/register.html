@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="d-flex justify-content-center align-items-start mt-5">
-    <div class="card shadow p-4" style="width: 600px;">
+    <div class="card shadow p-4" style="width: 600px; height: 800px;">
         <h3 class="text-center mb-4">Faculty Registration</h3>
         <form method="POST" action="{% url 'attendance:register' %}">
             {% csrf_token %}

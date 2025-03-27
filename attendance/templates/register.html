@@ -1,0 +1,54 @@
+{% extends 'attendance_base.html' %}
+
+{% block title %}Register - VJTI Attendance System{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-start mt-5">
+    <div class="card shadow p-4" style="width: 600px;">
+        <h3 class="text-center mb-4">Faculty Registration</h3>
+        <form method="POST" action="{% url 'attendance:register' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="first_name" class="form-label">First Name</label>
+                <input type="text" class="form-control" name="first_name" required>
+            </div>
+            <div class="mb-3">
+                <label for="last_name" class="form-label">Last Name</label>
+                <input type="text" class="form-control" name="last_name" required>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" name="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" required>
+            </div>
+            <div class="mb-3">
+                <label for="department" class="form-label">Department</label>
+                <select name="department" id="department" class="form-select" required>
+                    <option value="">Select Department</option>
+                    {% for dept in departments %}
+                        <option value="{{ dept.id }}">{{ dept.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="degree" class="form-label">Degree</label>
+                <select name="degree" id="degree" class="form-select" required>
+                    <option value="">Select Degree</option>
+                    {% for deg in degrees %}
+                        <option value="{{ deg.id }}">{{ deg.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+        </form>
+        <p class="mt-3 text-center">Already have an account? <a href="{% url 'attendance:faculty_login' %}" class="text-primary">Login here</a></p>
+    </div>
+</div>
+{% endblock %}

@@ -13,6 +13,5 @@ urlpatterns = [
     path("",home, name="home"),
     path("login/",faculty_login, name="faculty_login"),
     path("register/", register, name="register"),
-    path("dashboard/", dashboard, name="dashboard"),
+    path("dashboard/<int:faculty_id>/", dashboard, name="dashboard"),
 ]
-

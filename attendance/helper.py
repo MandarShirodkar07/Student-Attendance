@@ -1,7 +1,7 @@
-from django.shortcuts import redirect
-from django.http import HttpResponseForbidden
-from django.core.files.base import ContentFile
 import requests
+from django.http import HttpResponseForbidden
+from django.shortcuts import redirect
+from django.core.files.base import ContentFile
 
 
 def unauthenticated_user(view_func):

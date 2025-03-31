@@ -1,6 +1,6 @@
 
 from django.urls import path
-from attendance.views import RegisterFacultyView, LoginView,faculty_login, register,home,dashboard,faculty_logout
+from .views import *
 
 app_name = 'attendance'
 

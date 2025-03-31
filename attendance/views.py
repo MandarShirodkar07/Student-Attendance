@@ -1,20 +1,18 @@
-from rest_framework.generics import CreateAPIView
-from django.contrib.auth import get_user_model
-from rest_framework.permissions import AllowAny
-from .serializers import FacultySerializer,LoginSerializer
+from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login as auth_login, logout, authenticate, get_user_model 
+from django.contrib.auth.models import update_last_login
+from django.contrib.auth.decorators import login_required
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
+from rest_framework.generics import CreateAPIView
 from rest_framework.authtoken.models import Token
-from rest_framework import status
-from django.contrib import messages
-from django.contrib.auth import authenticate
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.models import update_last_login
 from rest_framework_simplejwt.tokens import RefreshToken
-from .serializers import LoginSerializer
-from django.contrib.auth import logout
-from . helper import unauthenticated_user
-from django.contrib.auth.decorators import login_required
+from .helper import *
+from .models import *
+from .serializers import *
 
 User = get_user_model()
 
@@ -41,12 +39,6 @@ class LoginView(APIView):
             }, status=status.HTTP_200_OK)
 
         return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
-  
-
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login as auth_login
-from django.contrib import messages
-from attendance.models import Faculty, Department, Degree
 
 
 def home(request):

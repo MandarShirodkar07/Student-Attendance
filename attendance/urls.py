@@ -1,4 +1,3 @@
-
 from django.urls import path
 from .views import *
 
@@ -16,4 +15,3 @@ urlpatterns = [
     path("dashboard/<int:faculty_id>/", dashboard, name="dashboard"),
     path("logout/", faculty_logout, name="faculty_logout"),
 ]
-

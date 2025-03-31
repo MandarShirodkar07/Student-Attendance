@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from rest_framework.authtoken.models import Token
-from .models import Faculty, Department, Degree
+from .models import *
 
 @admin.register(Faculty)
 class FacultyAdmin(UserAdmin):  # Use UserAdmin to manage Faculty like a user

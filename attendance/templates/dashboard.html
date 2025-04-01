@@ -5,15 +5,9 @@
 {% block content %}
 <h1>Login succesful</h1>
 <hr>
-<<<<<<< HEAD
-<h3>Welcome, {{ faculty.first_name }}</h3>
-<p>{{ faculty.email }}</p>
-<hr>
-=======
 <form method="GET" action="{% url 'attendance:dashboard' faculty.id %}">
     {% csrf_token %}
     <h3>Welcome, {{ faculty.first_name }}</h3>
     <p>{{ faculty.email }}</p>
     <hr>
->>>>>>> 2f61e775f2a4a5f2c5e6aabd9259c021cd197960
 {% endblock %}

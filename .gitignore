@@ -1,6 +1,5 @@
 .venv
-student_attendance/__pycache__
-attendance/__pycache__
+**/__pycache__
 
 # Django stuff:
 *.log

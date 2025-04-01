@@ -16,6 +16,7 @@ from .serializers import *
 
 User = get_user_model()
 
+
 class RegisterFacultyView(CreateAPIView):
     queryset = User.objects.all()
     serializer_class = FacultySerializer
@@ -50,15 +51,15 @@ def faculty_login(request):
         email = request.POST.get("email")
         password = request.POST.get("password")
         user = authenticate(email=email, password=password)
-        faculty_id = user.id
-            
+        
         if user is not None:
+            faculty_id = user.id
             auth_login(request, user)
             faculty = Faculty.objects.get(id=faculty_id)
             return redirect("attendance:dashboard", faculty.id)  # Redirect to dashboard after login
         else:
             messages.error(request, "Invalid email or password.")
-
+            return render(request, "faculty_login.html")
     return render(request, "faculty_login.html")
 
 @unauthenticated_user
@@ -94,7 +95,6 @@ def register(request):
             user.save()
             messages.success(request, "Registration successful. You can now log in.")
             return redirect("attendance:faculty_login")
-
     return render(request, "register.html", {"departments": departments, "degrees": degrees})
 
 @login_required

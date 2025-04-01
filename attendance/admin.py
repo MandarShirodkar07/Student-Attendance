@@ -23,7 +23,6 @@ class FacultyAdmin(UserAdmin):  # Use UserAdmin to manage Faculty like a user
     )
     ordering = ('id',)
 
-
 @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')

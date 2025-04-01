@@ -14,7 +14,6 @@ class FacultySerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)
         return user
 
-
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)

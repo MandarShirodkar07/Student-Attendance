@@ -1,6 +1,5 @@
-
 from django.urls import path
-from attendance.views import RegisterFacultyView, LoginView,faculty_login, register,home,dashboard
+from .views import *
 
 app_name = 'attendance'
 
@@ -14,4 +13,5 @@ urlpatterns = [
     path("login/",faculty_login, name="faculty_login"),
     path("register/", register, name="register"),
     path("dashboard/<int:faculty_id>/", dashboard, name="dashboard"),
+    path("logout/", faculty_logout, name="faculty_logout"),
 ]

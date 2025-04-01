@@ -1,18 +1,18 @@
+from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login as auth_login, logout, authenticate, get_user_model 
+from django.contrib.auth.models import update_last_login
+from django.contrib.auth.decorators import login_required
 from rest_framework import status
-from rest_framework.generics import CreateAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
+from rest_framework.generics import CreateAPIView
 from rest_framework.authtoken.models import Token
 from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib import messages
-from django.contrib.auth import get_user_model
-from django.contrib.auth import authenticate
-from django.contrib.auth import authenticate, login as auth_login
-from django.contrib.auth.models import update_last_login
-from django.shortcuts import render, redirect, get_object_or_404
-from .serializers import FacultySerializer,LoginSerializer
-from .models import Faculty, Department, Degree
+from .helper import *
+from .models import *
+from .serializers import *
 
 User = get_user_model()
 
@@ -42,10 +42,10 @@ class LoginView(APIView):
         return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
 
 
-
 def home(request):
     return render(request, "attendance_base.html")
 
+@unauthenticated_user
 def faculty_login(request):
     if request.method == "POST":
         email = request.POST.get("email")
@@ -56,12 +56,13 @@ def faculty_login(request):
         if user is not None:
             auth_login(request, user)
             faculty = Faculty.objects.get(id=faculty_id)
-            return render(request, "dashboard.html", {"faculty":faculty})  # Redirect to dashboard after login
+            return redirect("attendance:dashboard", faculty.id)  # Redirect to dashboard after login
         else:
             messages.error(request, "Invalid email or password.")
 
     return render(request, "faculty_login.html")
 
+@unauthenticated_user
 def register(request):
     departments = Department.objects.all()  # Fetch all departments
     degrees = Degree.objects.all()  # Fetch all degrees
@@ -96,6 +97,11 @@ def register(request):
             return redirect("attendance:faculty_login")
     return render(request, "register.html", {"departments": departments, "degrees": degrees})
 
+@login_required
 def dashboard(request, faculty_id):
     faculty = get_object_or_404(Faculty, id=faculty_id)
     return render(request, "dashboard.html", {"faculty": faculty})
+
+def faculty_logout(request):
+    logout(request)
+    return redirect("attendance:faculty_login")
